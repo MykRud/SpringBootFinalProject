@@ -11,12 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity @Data @AllArgsConstructor
 public class User implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;

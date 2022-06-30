@@ -17,27 +17,10 @@ import java.util.Optional;
 @Transactional
 public interface UserDaoRep extends JpaRepository<User, Integer> {
 
-    @Override
-    List<User> findAll();
-
-    @Override
-    Optional<User> findById(Integer integer);
-
     User getByUsername(String username);
-
-    @Override
-    Page<User> findAll(Pageable pageable);
-
-    @Override
-    <S extends User> S save(S entity);
-
-    @Override
-    void delete(User entity);
 
     @Modifying
     @Query(value = "DELETE FROM user_roles WHERE user_id=:userId", nativeQuery = true)
     void deleteAuthorities(@Param("userId") int userId);
 
-    @Override
-    void deleteById(Integer integer);
 }

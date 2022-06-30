@@ -8,13 +8,14 @@ import java.io.Serializable;
 import java.util.*;
 
 import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity @Data
 @NoArgsConstructor @AllArgsConstructor
 public class Activity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     private String name;
     private String status;

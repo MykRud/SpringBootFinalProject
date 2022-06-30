@@ -16,34 +16,16 @@ import java.util.Optional;
 @Transactional
 public interface ActivityDaoRep extends JpaRepository<Activity, Integer> {
 
-    @Override
-    List<Activity> findAll();
-
-    @Override
-    Optional<Activity> findById(Integer integer);
-
     Activity getByName(String name);
 
     @Query(
-            value = "SELECT *, count(req.activity_id) AS number_of_users FROM activity ac LEFT JOIN activityrequest req ON ac.id=req.activity_id where (req.action='Add' AND req.status='Approved') OR req.activity_id IS NULL group by ac.id",
+            value = "SELECT *, count(req.activity_id) AS number_of_users FROM activity ac LEFT JOIN ActivityRequest req ON ac.id=req.activity_id where (req.action='Add' AND req.status='Approved') OR req.activity_id IS NULL group by ac.id",
             nativeQuery = true
     )
     List<Activity> findByNumberOfUsers(Pageable pageable);
 
-    @Override
-    long count();
-
-    @Override
-    <S extends Activity> S save(S entity);
-
-    @Override
-    void deleteById(Integer integer);
-
     @Modifying
     @Query(value = "DELETE FROM activity_users WHERE users_id=:users_id", nativeQuery = true)
     void deleteByUserId(@Param("users_id") int users_id);
-
-    @Override
-    void delete(Activity entity);
 
 }

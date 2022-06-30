@@ -14,24 +14,6 @@ import java.util.Optional;
 @Transactional
 public interface TypesOfActivitiesDaoRep extends JpaRepository<TypeOfActivity, Integer> {
 
-    @Override
-    List<TypeOfActivity> findAll();
-
-    @Override
-    Page<TypeOfActivity> findAll(Pageable pageable);
-
-    @Override
-    Optional<TypeOfActivity> findById(Integer integer);
-
     TypeOfActivity getByName(String name);
-
-    @Override
-    <S extends TypeOfActivity> S save(S entity);
-
-    @Override
-    void deleteById(Integer integer);
-
-    @Override
-    void delete(TypeOfActivity entity);
 
 }

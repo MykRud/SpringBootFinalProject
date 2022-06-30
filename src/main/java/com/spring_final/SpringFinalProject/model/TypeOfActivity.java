@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 @Table(name = "typeofactivity")
 public class TypeOfActivity implements Serializable{
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     private String name;
 

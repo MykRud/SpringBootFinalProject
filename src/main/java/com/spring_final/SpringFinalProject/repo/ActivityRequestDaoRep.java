@@ -16,31 +16,7 @@ import java.util.Optional;
 @Transactional
 public interface ActivityRequestDaoRep extends JpaRepository<ActivityRequest, Integer> {
 
-    @Override
-    List<ActivityRequest> findAll();
-
-    @Override
-    Page<ActivityRequest> findAll(Pageable pageable);
-
-    @Override
-    <S extends ActivityRequest> S save(S entity);
-
-    @Override
-    Optional<ActivityRequest> findById(Integer integer);
-
     @Query("FROM ActivityRequest WHERE user_id = :userId AND activity_id = :activityId")
     List<ActivityRequest> findByUserIdAndActivityId(@Param("userId") Integer userId, @Param("activityId") Integer activityId);
-
-    @Query("FROM ActivityRequest WHERE user_id = :userId")
-    List<ActivityRequest> findByUserId(@Param("userId") Integer userId);
-
-    @Query("FROM ActivityRequest WHERE activity_id = :activityId")
-    List<ActivityRequest> findByActivityId(@Param("activityId") Integer activityId);
-
-    @Override
-    void deleteById(Integer integer);
-
-    @Override
-    void delete(ActivityRequest entity);
 
 }

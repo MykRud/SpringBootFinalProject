@@ -11,11 +11,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity(name = "ActivityRequest") @Data @NoArgsConstructor @AllArgsConstructor
 public class ActivityRequest implements Serializable{
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     private Activity activity;
