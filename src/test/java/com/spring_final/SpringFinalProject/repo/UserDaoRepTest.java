@@ -20,7 +20,7 @@ class UserDaoRepTest {
     private UserDaoRep underTestUserRep;
 
     @Test
-    void findAll() {
+    void itShouldFindAllUsers() {
         // given
         User John = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         User Ben = new User(null, "Ben", "Stiller", "ben", "1234", 56, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
@@ -38,7 +38,7 @@ class UserDaoRepTest {
     }
 
     @Test
-    void findById() {
+    void itShouldFindUserById() {
         // given
         User expectedUser = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         underTestUserRep.save(expectedUser);
@@ -51,7 +51,7 @@ class UserDaoRepTest {
     }
 
     @Test
-    void getByUsername() {
+    void itShouldGetUserByUsername() {
         // given
         User expectedUser = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         underTestUserRep.save(expectedUser);
@@ -70,7 +70,7 @@ class UserDaoRepTest {
     }
 
     @Test
-    void save() {
+    void itShouldSaveUser() {
         // given
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
 
@@ -84,7 +84,7 @@ class UserDaoRepTest {
     }
 
     @Test
-    void delete() {
+    void itShouldDeleteUser() {
         // given
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         underTestUserRep.save(user);
@@ -98,13 +98,13 @@ class UserDaoRepTest {
     }
 
     @Test
-    void deleteAuthorities() {
+    void itShouldDeleteAuthorities() {
         // given
         // TODO: implement this test
     }
 
     @Test
-    void deleteById() {
+    void itShouldDeleteUserById() {
         // given
         User user = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         underTestUserRep.save(user);
