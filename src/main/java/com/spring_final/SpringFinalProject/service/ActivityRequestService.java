@@ -34,7 +34,7 @@ public class ActivityRequestService {
     }
 
     public int getNumberOfRequests(){
-        return 10;
+        return (int)requestDao.count();
     }
 
     //public List<ActivityRequest> getRequestsInLimit(int size, int page){
@@ -158,5 +158,21 @@ public class ActivityRequestService {
         Pageable pages = PageRequest.of(page, size, Sort.by("id").descending());
         return requestDao.findAll(pages).toList();
 
+    }
+
+    public ActivityRequestDaoRep getRequestDao() {
+        return requestDao;
+    }
+
+    public void setRequestDao(ActivityRequestDaoRep requestDao) {
+        this.requestDao = requestDao;
+    }
+
+    public ActivityDaoRep getActivityDao() {
+        return activityDao;
+    }
+
+    public void setActivityDao(ActivityDaoRep activityDao) {
+        this.activityDao = activityDao;
     }
 }

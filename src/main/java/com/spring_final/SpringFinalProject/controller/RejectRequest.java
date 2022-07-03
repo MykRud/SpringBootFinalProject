@@ -3,6 +3,7 @@ package com.spring_final.SpringFinalProject.controller;
 import com.spring_final.SpringFinalProject.model.ActivityRequest;
 import com.spring_final.SpringFinalProject.service.ActivityRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ public class RejectRequest {
     @Autowired
     ActivityRequestService service;
 
+    @Secured("ADMIN")
     @RequestMapping("/admin/activityRequestReject")
     public String rejectRequest(@RequestParam("id") int id){
         ActivityRequest request = service.getRequest(id);

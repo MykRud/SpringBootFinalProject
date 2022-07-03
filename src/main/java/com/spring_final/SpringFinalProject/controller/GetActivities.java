@@ -3,6 +3,7 @@ package com.spring_final.SpringFinalProject.controller;
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ public class GetActivities {
     @Autowired
     ActivityService service;
 
+    @Secured("USER")
     @RequestMapping("/activities")
     public ModelAndView getActivities(@RequestParam(value = "page", defaultValue = "0") int page,
                                       @RequestParam(value = "size", defaultValue = "5") int size,

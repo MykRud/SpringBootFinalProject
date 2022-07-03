@@ -6,6 +6,7 @@ import com.spring_final.SpringFinalProject.service.ActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import com.spring_final.SpringFinalProject.validator.TimeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class MarkTime {
     @Autowired
     UserService userService;
 
+    @Secured("USER")
     @RequestMapping("/markTime")
     public ModelAndView markTime(@RequestParam("activity_id") int activityId,
                                  @RequestParam("days") int days,

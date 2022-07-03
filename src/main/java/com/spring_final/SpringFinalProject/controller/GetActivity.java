@@ -3,6 +3,7 @@ package com.spring_final.SpringFinalProject.controller;
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ public class GetActivity {
     @Autowired
     ActivityService service;
 
+    @Secured("USER")
    @RequestMapping("/getActivityById")
     public ModelAndView getActivity(@RequestParam("id") int id){
         ModelAndView mv = new ModelAndView();
@@ -23,6 +25,7 @@ public class GetActivity {
         return mv;
     }
 
+    @Secured("USER")
     @RequestMapping("/getActivityByName")
     public ModelAndView getActivity(@RequestParam("name") String name){
         ModelAndView mv = new ModelAndView();

@@ -2,6 +2,7 @@ package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ public class DeleteUser {
     @Autowired
     UserService service;
 
+    @Secured("ADMIN")
     @RequestMapping("/admin/userDelete")
     public String deleteUser(@RequestParam("id") int id){
 

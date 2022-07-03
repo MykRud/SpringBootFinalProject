@@ -32,4 +32,13 @@ public class TypeOfActivityService {
     public TypeOfActivity getType(String name) {
         return typeDao.getByName(name);
     }
+
+
+    public TypesOfActivitiesDaoRep getTypeDao() {
+        return typeDao;
+    }
+
+    public void setTypeDao(TypesOfActivitiesDaoRep typeDao) {
+        this.typeDao = typeDao;
+    }
 }

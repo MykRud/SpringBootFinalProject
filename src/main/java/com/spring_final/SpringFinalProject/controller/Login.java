@@ -18,8 +18,8 @@ import java.util.ResourceBundle;
 @Controller
 public class Login {
 
-    @Autowired
-    UserService service;
+    //@Autowired
+    //UserService service;
 
     @RequestMapping("/login")
     public String addActivityPost(/*@ModelAttribute("user") User user, HttpServletRequest request*/){

@@ -82,4 +82,12 @@ public class ActivityService {
         Pageable pages = PageRequest.of(page, size, Sort.by("number_of_users").descending());
         return activityDao.findByNumberOfUsers(pages);
     }
+
+    public ActivityDaoRep getActivityDao() {
+        return activityDao;
+    }
+
+    public void setActivityDao(ActivityDaoRep activityDao) {
+        this.activityDao = activityDao;
+    }
 }

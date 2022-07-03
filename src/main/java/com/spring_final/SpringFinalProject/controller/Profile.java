@@ -3,6 +3,7 @@ package com.spring_final.SpringFinalProject.controller;
 import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ public class Profile {
     @Autowired
     UserService service;
 
+    @Secured("USER")
     @RequestMapping("/profile")
     public ModelAndView profile(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();

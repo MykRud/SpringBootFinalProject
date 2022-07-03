@@ -5,6 +5,7 @@ import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.service.UserService;
 import com.spring_final.SpringFinalProject.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +22,7 @@ public class UpdateProfile {
     @Autowired
     UserService service;
 
+    @Secured("USER")
     @RequestMapping("/userProfileUpdate")
     public ModelAndView updateProfile(@ModelAttribute("user") User user){
         ModelAndView mv = new ModelAndView();

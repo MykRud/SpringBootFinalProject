@@ -6,6 +6,7 @@ import com.spring_final.SpringFinalProject.service.ActivityRequestService;
 import com.spring_final.SpringFinalProject.service.ActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ public class CompleteRequest {
     @Autowired
     UserService userService;
 
+    @Secured("USER")
     @RequestMapping("/activityRequestComplete")
-    public String completeRequest(@RequestParam("activity_id") int activityId, HttpSession session){
+    public String completeRequest(@RequestParam("activity_id") int activityId){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUser(username);
         Activity activity = activityService.getActivity(activityId);

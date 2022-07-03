@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<c:url value="resources/css/styles.css"/>" rel="stylesheet" />
+        <link href="<c:url value="/resources/css/styles.css"/>" rel="stylesheet" />
 
         <style type="text/css">
             ::placeholder{
@@ -44,7 +44,7 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!--<div class="row justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-lg-5 col-xl-7">
                 <span class="text-danger align-content-center">
                                     <c:forEach var="error" items="${requestScope.errors}">
@@ -52,7 +52,7 @@
                                     </c:forEach>
                                 </span>
                             </div>
-                        </div>-->
+                        </div>
                         ${SPRING_SECURITY_LAST_EXCEPTION.message}
                 <!-- Contact Section Form-->
                 <div class="row justify-content-center">
@@ -124,7 +124,7 @@
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         
-        <script src="<c:url value="resources/js/scripts.js"/>"></script>
+        <script src="<c:url value="/resources/js/scripts.js"/>"></script>
 
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>

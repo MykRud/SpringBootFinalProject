@@ -119,4 +119,43 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }*/
 
+    public UserDaoRep getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDaoRep userDao) {
+        this.userDao = userDao;
+    }
+
+    public RoleDaoRep getRoleDao() {
+        return roleDao;
+    }
+
+    public void setRoleDao(RoleDaoRep roleDao) {
+        this.roleDao = roleDao;
+    }
+
+    public ActivityDaoRep getActivityDao() {
+        return activityDao;
+    }
+
+    public void setActivityDao(ActivityDaoRep activityDao) {
+        this.activityDao = activityDao;
+    }
+
+    public ActivityRequestDaoRep getRequestDao() {
+        return requestDao;
+    }
+
+    public void setRequestDao(ActivityRequestDaoRep requestDao) {
+        this.requestDao = requestDao;
+    }
+
+    public TypesOfActivitiesDaoRep getTypeDao() {
+        return typeDao;
+    }
+
+    public void setTypeDao(TypesOfActivitiesDaoRep typeDao) {
+        this.typeDao = typeDao;
+    }
 }
