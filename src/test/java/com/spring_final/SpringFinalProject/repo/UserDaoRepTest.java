@@ -1,15 +1,14 @@
 package com.spring_final.SpringFinalProject.repo;
 
 import com.spring_final.SpringFinalProject.model.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +17,42 @@ class UserDaoRepTest {
 
     @Autowired
     private UserDaoRep underTestUserRep;
+
+    @AfterEach
+    void tearDown() {
+        underTestUserRep.deleteAll();
+    }
+
+    @Test
+    void itShouldFindUserById() {
+        // given
+        User expectedUser = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
+        underTestUserRep.save(expectedUser);
+
+        // when
+        User actualUser = null;
+        Optional<User> opt = underTestUserRep.findById(1);
+        if(opt.isPresent())
+            actualUser = opt.get();
+
+        // then
+        assertThat(actualUser).isEqualTo(expectedUser);
+    }
+
+    @Test
+    void itShouldDeleteUserById() {
+        // given
+        User user = new User(2, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
+        underTestUserRep.save(user);
+
+        // when
+        underTestUserRep.deleteById(2);
+        List<User> users = underTestUserRep.findAll();
+        boolean actual = users.isEmpty();
+
+        // then
+        assertThat(actual).isTrue();
+    }
 
     @Test
     void itShouldFindAllUsers() {
@@ -38,16 +73,29 @@ class UserDaoRepTest {
     }
 
     @Test
-    void itShouldFindUserById() {
+    void itShouldFindNoUsers() {
         // given
-        User expectedUser = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
-        underTestUserRep.save(expectedUser);
+        List<User> expectedUserList = new ArrayList<>();
 
         // when
-        User actualUser = underTestUserRep.findById(1).get();
+        List<User> actualUserList = underTestUserRep.findAll();
 
         // then
-        assertThat(actualUser).isEqualTo(expectedUser);
+        assertThat(actualUserList).isEqualTo(expectedUserList);
+    }
+
+    @Test
+    void itShouldNotFindAnyUserById() {
+        // given nothing
+
+        // when
+        User actualUser = null;
+        Optional<User> opt = underTestUserRep.findById(1);
+        if(opt.isPresent())
+            actualUser = opt.get();
+
+        // then
+        assertThat(actualUser).isNull();
     }
 
     @Test
@@ -61,6 +109,17 @@ class UserDaoRepTest {
 
         // then
         assertThat(actualUser).isEqualTo(expectedUser);
+    }
+
+    @Test
+    void itShouldNotGetAnyUserByUsername() {
+        // given nothing
+
+        // when
+        User actualUser = underTestUserRep.getByUsername("john");
+
+        // then
+        assertThat(actualUser).isNull();
     }
 
     @Test
@@ -80,7 +139,6 @@ class UserDaoRepTest {
 
         // then
         assertThat(actual).isTrue();
-
     }
 
     @Test
@@ -98,22 +156,22 @@ class UserDaoRepTest {
     }
 
     @Test
+    void itShouldNotDeleteUserAsUserIsNotRepresented() {
+        // given
+        User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
+
+        // when
+        underTestUserRep.delete(user);
+        boolean actual = underTestUserRep.getByUsername("john") == null;
+
+        // then
+        assertThat(actual).isTrue();
+    }
+
+    @Test
     void itShouldDeleteAuthorities() {
         // given
         // TODO: implement this test
     }
 
-    @Test
-    void itShouldDeleteUserById() {
-        // given
-        User user = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
-        underTestUserRep.save(user);
-
-        // when
-        underTestUserRep.deleteById(1);
-        boolean actual = underTestUserRep.findById(1) == null;
-
-        // then
-        assertThat(actual).isTrue();
-    }
 }
