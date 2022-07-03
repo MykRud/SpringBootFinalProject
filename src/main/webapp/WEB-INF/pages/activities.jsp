@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
-        <link href="<c:url value="resources/css/newStyle.css"/>" rel="stylesheet" />
+        <link href="<c:url value="/resources/css/newStyle.css"/>" rel="stylesheet" />
 
     </head>
     <body id="page-top">
@@ -288,7 +288,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="<c:url value="resources/js/scripts.js"/>"></script>
+        <script src="<c:url value="/resources/js/scripts.js"/>"></script>
 
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 

@@ -18,7 +18,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<c:url value="resources/css/styles.css"/>" rel="stylesheet" />
+        <link href="<c:url value="/resources/css/styles.css"/>" rel="stylesheet" />
     </head>
     <body id="page-top">
         <%@include file="/WEB-INF/fragments/navbar.jspf" %>
@@ -36,15 +36,15 @@
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!--<div class="row justify-content-center">
+               <div class="row justify-content-center">
                     <div class="col-lg-5 col-xl-7">
                 <span class="text-danger align-content-center">
-                                    <c:forEach items="${requestScope.errors}" var="error">
+                                    <c:forEach var="error" items="${requestScope.errors}">
                                         ${error}<br>
                                     </c:forEach>
                                 </span>
                             </div>
-                        </div>-->
+                        </div>
                 <!-- Contact Section Form-->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
@@ -165,7 +165,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="<c:url value="resources/js/scripts.js"/>"></script>
+        <script src="<c:url value="/resources/js/scripts.js"/>"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

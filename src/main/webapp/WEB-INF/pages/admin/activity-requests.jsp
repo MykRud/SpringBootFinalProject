@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="<c:url value="resources/css/styles.css"/>" rel="stylesheet" />
+        <link href="<c:url value="/resources/css/styles.css"/>" rel="stylesheet" />
 
 
          <link rel="stylesheet" href="<c:url value="/resources/fonts/icomoon/style.css"/>">
@@ -44,12 +44,12 @@
                     <div class="divider-custom-line"></div>
                     <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                     <div class="divider-custom-line"></div>
-                    <!--<span class="text-danger">
-                        <c:forEach var="error" items="${requestScope.errors}">
-                            ${error}<br>
-                        </c:forEach>
-                    </span>-->
-                </div>
+      
+                                    <c:forEach var="error" items="${requestScope.errors}">
+                                        ${error}<br>
+                                    </c:forEach>
+                                </span>
+                            
               <div class="row col-md-6">
                 <c:if test="${!requests.isEmpty()}">
                     <%@include file="/WEB-INF/fragments/activity-requests-paginator.jspf" %>
@@ -123,7 +123,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="<c:url value="resources/js/scripts.js"/>"></script>
+        <script src="<c:url value="/resources/js/scripts.js"/>"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
