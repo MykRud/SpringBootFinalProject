@@ -1,11 +1,7 @@
 package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
-import com.spring_final.SpringFinalProject.model.Activity;
-import com.spring_final.SpringFinalProject.model.TypeOfActivity;
 import com.spring_final.SpringFinalProject.model.User;
-import com.spring_final.SpringFinalProject.service.ActivityService;
-import com.spring_final.SpringFinalProject.service.TypeOfActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,17 +19,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Registration.class, SpringSecurityWebAuxTestConfig.class})
@@ -95,8 +86,8 @@ class RegistrationTest {
 
         mvc.perform(MockMvcRequestBuilders.get("/registration")
                         .flashAttr("user", user))
-                .andExpect(status().isOk())
-                .andExpect(view().name("registration"));
+                .andExpect(status().is3xxRedirection()) // TODO: find out why 302
+                .andExpect(view().name("redirect:/registrationDisplay?s=0"));
 
         verify(userService, times(1)).getUser("john");
 

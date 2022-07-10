@@ -22,11 +22,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {SetAdmin.class, SpringSecurityWebAuxTestConfig.class})
@@ -49,7 +47,7 @@ class SetAdminTest {
 
     @WithUserDetails("admin")
     @Test
-    void setAdmin() throws Exception{
+    void setAdmin() throws Exception {
         User user = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         Role userRole = new Role(1, "USER");
         Role adminRole = new Role(2, "ADMIN");

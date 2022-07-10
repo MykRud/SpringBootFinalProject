@@ -2,10 +2,7 @@ package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
 import com.spring_final.SpringFinalProject.model.ActivityRequest;
-import com.spring_final.SpringFinalProject.model.Role;
-import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.service.ActivityRequestService;
-import com.spring_final.SpringFinalProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,13 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)

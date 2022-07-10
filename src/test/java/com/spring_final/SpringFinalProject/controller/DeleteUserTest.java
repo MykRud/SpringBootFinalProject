@@ -2,8 +2,6 @@ package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
 import com.spring_final.SpringFinalProject.model.User;
-import com.spring_final.SpringFinalProject.service.ActivityService;
-import com.spring_final.SpringFinalProject.service.TypeOfActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -47,7 +44,7 @@ class DeleteUserTest {
 
     @WithUserDetails("admin")
     @Test
-    void deleteUser() throws Exception{
+    void deleteUser() throws Exception {
 
         User user = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
 

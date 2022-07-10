@@ -1,21 +1,15 @@
 package com.spring_final.SpringFinalProject.service;
 
 import com.spring_final.SpringFinalProject.model.TypeOfActivity;
-import com.spring_final.SpringFinalProject.model.User;
-import com.spring_final.SpringFinalProject.repo.*;
+import com.spring_final.SpringFinalProject.repo.TypesOfActivitiesDaoRep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -63,7 +57,7 @@ class TypeOfActivityServiceTest {
     @Test
     void findType() {
         // when
-        underTestTypeService.findType("Physical");
+        underTestTypeService.getType("Physical");
 
         // then
         verify(typeRepo).getByName("Physical");
@@ -71,10 +65,11 @@ class TypeOfActivityServiceTest {
 
     @Test
     void testFindType() {
-        assertThatThrownBy(() -> {
-            underTestTypeService.findType(1);
-            verify(typeRepo).findById(1);
-        }).isInstanceOf(NoSuchElementException.class);
+        // when
+        underTestTypeService.findType(1);
+
+        // then
+        verify(typeRepo).findById(1);
     }
 
     @Test

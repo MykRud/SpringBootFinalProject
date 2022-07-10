@@ -3,26 +3,16 @@ package com.spring_final.SpringFinalProject.service;
 import com.spring_final.SpringFinalProject.model.Role;
 import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.repo.*;
-import org.assertj.core.api.Assert;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.NoSuchElementException;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -117,6 +107,17 @@ class UserServiceTest {
 
     @Test
     void addRoleToUser() {
+        // given
+        User user = new User();
+        user.setFirstName("John");
+        user.setLastName("Travolta");
+        user.setUsername("john");
+        user.setPassword("1234");
+        when(userRepo.getByUsername("john")).thenReturn(user);
+
+        Role userRole = new Role(null, "USER");
+        when(roleRepo.findByName("USER")).thenReturn(userRole);
+
         // when
         underTestUserService.addRoleToUser("john", "USER");
 
@@ -131,7 +132,7 @@ class UserServiceTest {
         underTestUserService.getRoles();
 
         // then
-        verify(requestRepo).findAll();
+        verify(roleRepo).findAll();
     }
 
     @Test
@@ -145,10 +146,11 @@ class UserServiceTest {
 
     @Test
     void canGetUserById() {
-        assertThatThrownBy(() -> {
-            underTestUserService.getUser(1);
-            verify(userRepo).findById(1);
-        }).isInstanceOf(NoSuchElementException.class);
+        // when
+        underTestUserService.getUser(1);
+
+        // then
+        verify(userRepo).findById(1);
     }
 
     @Test

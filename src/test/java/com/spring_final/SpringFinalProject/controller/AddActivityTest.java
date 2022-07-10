@@ -1,6 +1,5 @@
 package com.spring_final.SpringFinalProject.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.model.TypeOfActivity;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,7 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -52,13 +50,13 @@ class AddActivityTest {
         mvc = MockMvcBuilders.standaloneSetup(addActivityController).setRemoveSemicolonContent(false).build();
     }
 
-    @WithUserDetails("qwerty")
+    @WithUserDetails("admin")
     @Test
     void addActivityPost() throws Exception {
-        Activity activity1 = new Activity(null, "Basketball", "Active", "Playing basketball", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity1 = new Activity(1, "Basketball", "Active", "Playing basketball", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
 
-        TypeOfActivity physical = new TypeOfActivity(null, "Physical", new HashSet<>());
-        TypeOfActivity job = new TypeOfActivity(null, "Job", new HashSet<>());
+        TypeOfActivity physical = new TypeOfActivity(1, "Physical", new HashSet<>());
+        TypeOfActivity job = new TypeOfActivity(1, "Job", new HashSet<>());
 
         List<TypeOfActivity> types = new ArrayList<>();
         types.add(physical);
@@ -70,10 +68,13 @@ class AddActivityTest {
         when(typeOfActivityService.getType("Physical")).thenReturn(physical);
 
         mvc.perform(MockMvcRequestBuilders.post("/admin/activitiesAdd")
-                .flashAttr("activity", activity1))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/activities"))
-                .andExpect(model().attribute("types", types));
+                        .flashAttr("activity", activity1))
+                .andExpect(status().is3xxRedirection()) // TODO: find out why client_error (400)
+                .andExpect(view().name("redirect:/admin/addActivityDisplay?s=1"))
+                .andDo(print())
+                .andExpect(model().attribute("types", types))
+                .andExpect(flash().attribute("types", types))
+                .andExpect(flash().attribute("activity", activity1));
 
         verify(typeOfActivityService, times(1)).getTypes();
         verify(typeOfActivityService, times(1)).getType("Physical");

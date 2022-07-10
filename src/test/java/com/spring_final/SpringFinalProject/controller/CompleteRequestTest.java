@@ -2,11 +2,9 @@ package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
 import com.spring_final.SpringFinalProject.model.Activity;
-import com.spring_final.SpringFinalProject.model.ActivityRequest;
 import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.service.ActivityRequestService;
 import com.spring_final.SpringFinalProject.service.ActivityService;
-import com.spring_final.SpringFinalProject.service.TypeOfActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,11 +24,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Date;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {CompleteRequest.class, SpringSecurityWebAuxTestConfig.class})
@@ -63,7 +59,7 @@ class CompleteRequestTest {
     @Test
     @WithUserDetails("qwerty")
     void completeRequest() throws Exception {
-        Activity activity = new Activity(1, "Basketball", "Active", "Playing basketball", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(1, "Basketball", "Active", "Playing basketball", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(1, "John", "Travolta", "qwerty", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         //when(SecurityContextHolder.getContext().getAuthentication().getName()).thenReturn("qwerty");

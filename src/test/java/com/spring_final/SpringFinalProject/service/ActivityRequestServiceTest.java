@@ -2,29 +2,21 @@ package com.spring_final.SpringFinalProject.service;
 
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.model.ActivityRequest;
-import com.spring_final.SpringFinalProject.model.TypeOfActivity;
 import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.repo.ActivityDaoRep;
 import com.spring_final.SpringFinalProject.repo.ActivityRequestDaoRep;
-import com.spring_final.SpringFinalProject.repo.TypesOfActivitiesDaoRep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +39,7 @@ class ActivityRequestServiceTest {
     @Test
     void addRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");
@@ -85,7 +77,7 @@ class ActivityRequestServiceTest {
     @Test
     void makeAddRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");
@@ -96,16 +88,16 @@ class ActivityRequestServiceTest {
         // when
         underTestActivityService.makeAddRequest(user, activity);
 
-       // ArgumentCaptor<ActivityRequest> requestArgumentCaptor = ArgumentCaptor.forClass(ActivityRequest.class);
+        // ArgumentCaptor<ActivityRequest> requestArgumentCaptor = ArgumentCaptor.forClass(ActivityRequest.class);
         verify(requestRepo).findByUserIdAndActivityId(null, null);
-       // ActivityRequest capturedRequest = requestArgumentCaptor.getValue();
+        // ActivityRequest capturedRequest = requestArgumentCaptor.getValue();
         //assertThat(capturedRequest).isEqualTo(request);
     }
 
     @Test
     void makeCompleteRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");
@@ -125,7 +117,7 @@ class ActivityRequestServiceTest {
     @Test
     void approveRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");
@@ -145,7 +137,7 @@ class ActivityRequestServiceTest {
     @Test
     void completeRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");
@@ -166,7 +158,7 @@ class ActivityRequestServiceTest {
     @Test
     void rejectRequest() {
         // given
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(null, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
         ActivityRequest request = new ActivityRequest();
         request.setStatus("Pending");

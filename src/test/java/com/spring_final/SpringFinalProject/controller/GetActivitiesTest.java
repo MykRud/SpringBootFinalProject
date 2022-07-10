@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -47,8 +47,8 @@ class GetActivitiesTest {
     @WithUserDetails("qwerty")
     @Test
     void getActivities() throws Exception {
-        Activity activity1 = new Activity(null, "Basketball", "Active", "Playing basketball", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
-        Activity activity2 = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity1 = new Activity(null, "Basketball", "Active", "Playing basketball", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity2 = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
 
         List<Activity> activities = new ArrayList<>();
         activities.add(activity1);

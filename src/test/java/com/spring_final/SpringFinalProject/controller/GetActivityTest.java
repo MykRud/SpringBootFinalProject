@@ -3,7 +3,6 @@ package com.spring_final.SpringFinalProject.controller;
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.service.ActivityService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +16,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import java.util.Date;
 import java.util.HashSet;
 
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -46,8 +44,8 @@ class GetActivityTest {
 
     @WithUserDetails("qwerty")
     @Test
-    void getActivity() throws Exception{
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+    void getActivity() throws Exception {
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         when(activityService.getActivity("Football")).thenReturn(activity);
 
         mvc.perform(get("/getActivityByName?name=Football"))

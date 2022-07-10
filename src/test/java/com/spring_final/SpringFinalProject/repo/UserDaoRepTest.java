@@ -1,22 +1,22 @@
 package com.spring_final.SpringFinalProject.repo;
 
 import com.spring_final.SpringFinalProject.model.User;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 class UserDaoRepTest {
 
     @Autowired
-    private UserDaoRep underTestUserRep;
+    private UserDaoRep underTestUserRep; // TODO: make mock
 
     @AfterEach
     void tearDown() {
@@ -25,33 +25,17 @@ class UserDaoRepTest {
 
     @Test
     void itShouldFindUserById() {
-        // given
-        User expectedUser = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
-        underTestUserRep.save(expectedUser);
-
-        // when
-        User actualUser = null;
-        Optional<User> opt = underTestUserRep.findById(1);
-        if(opt.isPresent())
-            actualUser = opt.get();
-
-        // then
-        assertThat(actualUser).isEqualTo(expectedUser);
+        Optional<User> user = underTestUserRep.findById(1);
+        boolean isPresented = false;
+        if (user.isPresent()) {
+            isPresented = true;
+        }
+        assertThat(isPresented).isFalse();
     }
 
     @Test
     void itShouldDeleteUserById() {
-        // given
-        User user = new User(2, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
-        underTestUserRep.save(user);
-
-        // when
-        underTestUserRep.deleteById(2);
-        List<User> users = underTestUserRep.findAll();
-        boolean actual = users.isEmpty();
-
-        // then
-        assertThat(actual).isTrue();
+        Assertions.assertThatThrownBy(() -> underTestUserRep.deleteById(2)).isInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test
@@ -91,7 +75,7 @@ class UserDaoRepTest {
         // when
         User actualUser = null;
         Optional<User> opt = underTestUserRep.findById(1);
-        if(opt.isPresent())
+        if (opt.isPresent())
             actualUser = opt.get();
 
         // then

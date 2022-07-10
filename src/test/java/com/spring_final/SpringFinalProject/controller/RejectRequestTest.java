@@ -22,11 +22,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Date;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {RejectRequest.class, SpringSecurityWebAuxTestConfig.class})
@@ -50,7 +48,7 @@ class RejectRequestTest {
     @Test
     @WithUserDetails("admin")
     void rejectRequest() throws Exception {
-        Activity activity = new Activity(null, "Basketball", "Active", "Playing basketball", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Basketball", "Active", "Playing basketball", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         User user = new User(1, "John", "Travolta", "john", "1234", 67, "Male", "+380970689690", new HashSet<>(), new HashSet<>(), new HashSet<>());
 
         ActivityRequest request = new ActivityRequest(1, activity, user, "Add", "Pending");

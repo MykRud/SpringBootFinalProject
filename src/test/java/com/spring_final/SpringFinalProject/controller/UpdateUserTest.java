@@ -21,11 +21,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {UpdateUser.class, SpringSecurityWebAuxTestConfig.class})
@@ -56,7 +54,7 @@ class UpdateUserTest {
         mvc.perform(MockMvcRequestBuilders.get("/admin/userUpdate?user_id=1")
                         .flashAttr("user", user))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin/users"));
+                .andExpect(view().name("redirect:/admin/userUpdateDisplay?s=1"));
 
         verify(userService, times(1)).getUser(1);
 

@@ -2,14 +2,13 @@ package com.spring_final.SpringFinalProject.service;
 
 import com.spring_final.SpringFinalProject.model.Activity;
 import com.spring_final.SpringFinalProject.model.User;
-import com.spring_final.SpringFinalProject.repo.*;
+import com.spring_final.SpringFinalProject.repo.ActivityDaoRep;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +16,6 @@ import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -66,10 +64,11 @@ class ActivityServiceTest {
 
     @Test
     void testGetActivity() {
-        assertThatThrownBy(() -> {
-            underTestActivityService.getActivity(1);
-            verify(activityRepo).findById(1);
-        }).isInstanceOf(NoSuchElementException.class);
+        // when
+        underTestActivityService.getActivity(1);
+
+        // then
+        verify(activityRepo).findById(1);
     }
 
     @Test
@@ -107,7 +106,7 @@ class ActivityServiceTest {
         user.setUsername("john");
         user.setPassword("1234");
 
-        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(null, "Football", "Active", "Playing football", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
 
         user.getActivities().add(activity);
 

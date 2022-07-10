@@ -17,16 +17,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.HashSet;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {UpdateProfile.class, SpringSecurityWebAuxTestConfig.class})
@@ -57,7 +54,7 @@ class UpdateProfileTest {
         mvc.perform(MockMvcRequestBuilders.get("/userProfileUpdate")
                         .flashAttr("user", user))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/profile"));
+                .andExpect(view().name("redirect:/profileUpdateDisplay?s=1"));
 
         verify(userService, times(1)).getUser("qwerty");
 

@@ -1,8 +1,6 @@
 package com.spring_final.SpringFinalProject.controller;
 
 import com.spring_final.SpringFinalProject.SpringSecurityWebAuxTestConfig;
-import com.spring_final.SpringFinalProject.model.Activity;
-import com.spring_final.SpringFinalProject.model.TypeOfActivity;
 import com.spring_final.SpringFinalProject.service.ActivityService;
 import com.spring_final.SpringFinalProject.service.TypeOfActivityService;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,16 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {DeleteActivity.class, SpringSecurityWebAuxTestConfig.class})

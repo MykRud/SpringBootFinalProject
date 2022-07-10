@@ -6,14 +6,12 @@ import com.spring_final.SpringFinalProject.model.TypeOfActivity;
 import com.spring_final.SpringFinalProject.model.User;
 import com.spring_final.SpringFinalProject.service.ActivityRequestService;
 import com.spring_final.SpringFinalProject.service.ActivityService;
-import com.spring_final.SpringFinalProject.service.TypeOfActivityService;
 import com.spring_final.SpringFinalProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,18 +21,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {AddRequest.class, SpringSecurityWebAuxTestConfig.class})
@@ -64,7 +56,7 @@ class AddRequestTest {
     @WithUserDetails("qwerty")
     @Test
     void addRequest() throws Exception {
-        Activity activity = new Activity(1, "Basketball", "Pending", "Playing basketball", 231234, new Date(24-01-2003), new Date(30-06-2022), null, new HashSet<>(), new HashSet<>());
+        Activity activity = new Activity(1, "Basketball", "Pending", "Playing basketball", 231234, new Date(24 - 01 - 2003), new Date(30 - 06 - 2022), null, new HashSet<>(), new HashSet<>());
         TypeOfActivity physical = new TypeOfActivity(null, "Physical", new HashSet<>());
         activity.setType(physical);
 
