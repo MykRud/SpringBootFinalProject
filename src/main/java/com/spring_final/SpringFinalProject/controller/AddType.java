@@ -10,40 +10,65 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Controller @Slf4j
+/**
+ * Add type controller with which the user can add types
+ *
+ * @author Misha Rudyk
+ * @see TypeOfActivityService
+ * @see TypeOfActivity
+ */
+@Controller
+@Slf4j
 public class AddType {
 
     @Autowired
     TypeOfActivityService service;
 
+    /**
+     * Mapped method
+     *
+     * @return redirection to display method
+     */
     @Secured("ADMIN")
     @RequestMapping("/admin/typesAdd")
-    public ModelAndView addType(@ModelAttribute("type") TypeOfActivity type){
+    public ModelAndView addType(@ModelAttribute("type") TypeOfActivity type,
+                                final RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView();
-        if(type.getName() == null) {
+        if (type.getName() == null) {
+            log.info("Get request or name of type is null");
             mv.setViewName("WEB-INF/pages/admin/add-type");
             return mv;
         }
-        if(service.findType(type.getName()) != null) {
-            mv.setViewName("WEB-INF/pages/admin/add-type");
+
+        redirectAttributes.addFlashAttribute("type", type);
+
+        int successful = 1;
+        if (service.getType(type.getName()) != null) {
+            log.warn("Type is already represented");
+            successful = 0;
+            mv.setViewName("redirect:/admin/typeDisplay?s=" + successful);
             return mv;
         }
 
         List<String> errors = TypeValidator.validateState(type);
 
-        log.info("Adding type {}...", type.getName());
-        service.addType(type);
-
-        if(!errors.isEmpty()){
-            mv.addObject("errors", errors);
-            mv.setViewName("/WEB-INF/pages/admin/add-type");
+        if (!errors.isEmpty()) {
+            log.warn("Found some errors: {}", errors);
+            log.warn("Type has not been saved");
+            redirectAttributes.addFlashAttribute("errors", errors);
+            successful = 0;
+            mv.setViewName("redirect:/admin/typeDisplay?s=" + successful);
             return mv;
         }
 
-        mv.setViewName("redirect:/activities");
+        log.info("Adding type {}...", type.getName());
+        service.addType(type);
+
+        mv.setViewName("redirect:/admin/typeDisplay?s=" + successful);
         return mv;
     }
 
