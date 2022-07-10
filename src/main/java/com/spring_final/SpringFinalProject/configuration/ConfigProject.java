@@ -6,44 +6,46 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Configuration for Spring project
+ *
+ * @author Misha Rudyk
+ * @see WebMvcConfigurer
+ * @see LocaleChangeInterceptor
+ * @see ResourceHandlerRegistry
+ * @see FilterRegistrationBean
+ */
 @Configuration
-@ComponentScan({ "com.spring_final.SpringFinalProject" })
+@ComponentScan({"com.spring_final.SpringFinalProject"})
 public class ConfigProject implements WebMvcConfigurer {
-
-    /*@Bean
-    public InternalResourceViewResolver viewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/");
-        resolver.setSuffix(".jsp");
-        resolver.setRedirectHttp10Compatible(false);
-        return resolver;
-    }*/
-
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+    /**
+     * Bean for localization
+     */
     @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor(){
+    public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("lang");
         return interceptor;
     }
 
+    /**
+     * Method to configure resource handler
+     */
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/")
                 .setCachePeriod(3600)
@@ -52,8 +54,11 @@ public class ConfigProject implements WebMvcConfigurer {
                 .addResolver(new PathResourceResolver());
     }
 
+    /**
+     * Bean to add encoding filter
+     */
     @Bean
-    public FilterRegistrationBean<EncodingFilter> encodingFilter(){
+    public FilterRegistrationBean<EncodingFilter> encodingFilter() {
         FilterRegistrationBean<EncodingFilter> registrationBean
                 = new FilterRegistrationBean<>();
 
@@ -64,8 +69,11 @@ public class ConfigProject implements WebMvcConfigurer {
         return registrationBean;
     }
 
+    /**
+     * Bean to add localization filter
+     */
     @Bean
-    public FilterRegistrationBean<LocalizationFilter> localizationFilter(){
+    public FilterRegistrationBean<LocalizationFilter> localizationFilter() {
         FilterRegistrationBean<LocalizationFilter> registrationBean
                 = new FilterRegistrationBean<>();
 

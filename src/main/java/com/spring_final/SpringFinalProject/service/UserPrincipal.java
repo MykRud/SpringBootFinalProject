@@ -2,15 +2,16 @@ package com.spring_final.SpringFinalProject.service;
 
 import com.spring_final.SpringFinalProject.model.User;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
+/**
+ * Custom user details for authorization
+ */
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 

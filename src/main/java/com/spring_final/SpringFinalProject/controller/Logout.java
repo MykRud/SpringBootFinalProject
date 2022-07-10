@@ -5,17 +5,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * The controller that allows you to log out
+ *
+ * @author Misha Rudyk
+ * @see HttpSession
+ * @see com.spring_final.SpringFinalProject.security.SecurityConfig
+ */
 @Controller
 public class Logout {
 
-   // @RequestMapping("/logout")
-   // public String logout(HttpSession session){
-        //session.invalidate();
-     //   return "redirect:home";
-   // }
-
+    /**
+     * Mapped method
+     *
+     * @return home page
+     */
     @RequestMapping("/logout-success")
-    public String logout(){
+    public String logout() {
         return "redirect:home";
     }
 

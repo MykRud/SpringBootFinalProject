@@ -1,8 +1,10 @@
 package com.spring_final.SpringFinalProject.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,11 +12,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static javax.persistence.GenerationType.AUTO;
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity @Data @AllArgsConstructor
-public class User implements Serializable{
+@Entity
+@Data
+@AllArgsConstructor
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -27,9 +30,6 @@ public class User implements Serializable{
     private String contact;
     private String gender;
 
-    //@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    //public Set<Authority> authorities = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -40,7 +40,7 @@ public class User implements Serializable{
     @ToString.Exclude
     private Set<Activity> activities = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<ActivityRequest> activityRequests = new HashSet<>();
@@ -63,97 +63,8 @@ public class User implements Serializable{
     public User() {
     }
 
-    /*
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Set<Activity> getActivities() {
-        return activities;
-    }
-
-    public void setActivities(Set<Activity> activities) {
-        this.activities = activities;
-    }
-
-    public Set<ActivityRequest> getActivityRequests() {
-        return activityRequests;
-    }
-
-    public void setActivityRequests(Set<ActivityRequest> activityRequests) {
-        this.activityRequests = activityRequests;
-    }*/
-
     @Override
-    public String toString(){
+    public String toString() {
         return firstName + " " + lastName;
     }
 }

@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import static javax.persistence.GenerationType.AUTO;
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     private String name;
 }

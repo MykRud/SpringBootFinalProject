@@ -8,6 +8,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import java.io.IOException;
 
+/**
+ * Custom encoding filter
+ *
+ * @author Misha Rudyk
+ * @see ServletRequest
+ * @see ServletResponse
+ */
 @WebFilter(urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST})
 @Order(Ordered.LOWEST_PRECEDENCE - 3)
 public class EncodingFilter extends HttpFilter {

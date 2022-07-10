@@ -6,7 +6,6 @@ import com.spring_final.SpringFinalProject.repo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,11 +14,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+/**
+ * The service with business logic related to user
+ *
+ * @author Misha Rudyk
+ * @see UserDaoRep
+ * @see User
+ */
+@Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class UserService implements UserDetailsService {
 
     @Autowired
@@ -34,90 +41,164 @@ public class UserService implements UserDetailsService {
     private TypesOfActivitiesDaoRep typeDao;
     private final PasswordEncoder passwordEncoder;
 
-    public void addUser(User user){
-        log.info("Saving new user {} to the database", user.getUsername());
+    /**
+     * Method that allows to add user
+     *
+     * @param user User to add
+     */
+    public void addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
+        log.info("New user {} saved to the database", user.getUsername());
         User foundUser = getUser(user.getUsername());
-        if(foundUser != null)
+        if (foundUser != null)
             addRoleToUser(foundUser.getUsername(), "USER");
     }
 
-    public Role saveRole(Role role){
+    /**
+     * Method that allows to add role
+     *
+     * @param role Role to add
+     */
+    public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleDao.save(role);
     }
 
-    public User getUser(int id){
-        return userDao.findById(id).get();
+    /**
+     * Method that allows to get user by id
+     *
+     * @param id Id of user
+     * @return User with desired id
+     */
+    public User getUser(int id) {
+        User user;
+        try {
+            user = userDao.findById(id).get();
+        } catch (Exception e) {
+            log.warn("User not found");
+            return null;
+        }
+        log.info("User found");
+        return user;
     }
 
-    public void addRoleToUser(String username, String roleName){
-        log.info("Adding role {} to user {}", roleName, username);
+    /**
+     * Method that allows to add role to user
+     *
+     * @param username Username of desired user
+     * @param roleName Name of desired role
+     */
+    public void addRoleToUser(String username, String roleName) {
         User user = userDao.getByUsername(username);
         Role role = roleDao.findByName(roleName);
         user.getRoles().add(role);
+        log.info("Role {} added to user {}", roleName, username);
     }
 
-    public List<Role> getRoles(){
-        return roleDao.findAll();
+    /**
+     * Method that allows to get list of roles
+     *
+     * @return list of roles
+     */
+    public List<Role> getRoles() {
+        List<Role> roles = roleDao.findAll();
+        if (roles.isEmpty())
+            log.info("No roles found");
+        return roles;
     }
 
-    public Role getRole(String name){
-        return roleDao.findByName(name);
+    /**
+     * Method that allows to get role by its name
+     *
+     * @param name Name of role
+     * @return Role with desired name
+     */
+    public Role getRole(String name) {
+        Role role = roleDao.findByName(name);
+        if (role == null) {
+            log.warn("Role not found");
+        } else {
+            log.info("Role found");
+        }
+        return role;
     }
 
-    public User getUser(String username){
+    /**
+     * Method that allows to get user by username
+     *
+     * @param username Username of user
+     * @return User with desired username
+     */
+    public User getUser(String username) {
         log.info("Fetching user {}", username);
         return userDao.getByUsername(username);
     }
 
-    public List<User> getUsers(){
-        log.info("Fetching all users");
-        return userDao.findAll();
+    /**
+     * Method that allows to get list of users
+     *
+     * @return list of users
+     */
+    public List<User> getUsers() {
+        List<User> users = userDao.findAll();
+        if (users.isEmpty())
+            log.warn("No users found");
+        return users;
     }
 
-    public void deleteUser(int id){
+    /**
+     * Method that allows to delete user by id
+     *
+     * @param id Id of user
+     */
+    public void deleteUser(int id) {
         activityDao.deleteByUserId(id);
         userDao.deleteAuthorities(id);
         userDao.deleteById(id);
+        log.info("User deleted");
     }
 
-    public void updateProfile(User user){
-        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10)));
-        userDao.save(user);
+    /**
+     * Method that allows to update user profile
+     *
+     * @param user User that has to be updated
+     */
+    public void updateProfile(User user) {
+        try {
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10)));
+            userDao.save(user);
+        } catch (Exception e) {
+            log.warn("User cannot be updated");
+            return;
+        }
+        log.info("User updated");
     }
 
-    public void updateUser(User user){
-       // user.setAuthorities(foundUser.getAuthorities());
-        userDao.save(user);
+    /**
+     * Method that allows to update information related to some user
+     *
+     * @param user User that has to be updated
+     */
+    public void updateUser(User user) {
+        try {
+            userDao.save(user);
+        } catch (Exception e) {
+            log.warn("User cannot be updated");
+            return;
+        }
+        log.info("User updated");
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getByUsername(username);
 
-        if(user == null)
+        if (user == null)
             throw new UsernameNotFoundException("User is not found");
 
         return new UserPrincipal(user);
     }
-
-    /*@Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.getByUsername(username);
-        if(user == null){
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        } else{
-            log.info("User found in the database: {}", username);
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
-    }*/
 
     public UserDaoRep getUserDao() {
         return userDao;

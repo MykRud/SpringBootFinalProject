@@ -24,6 +24,14 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * Authentication filter that allows to use JWT
+ *
+ * @author Misha Rudyk
+ * @see JWT
+ * @see UsernamePasswordAuthenticationFilter
+ * @see AuthenticationManager
+ */
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -32,7 +40,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         this.authenticationManager = authenticationManager;
     }
 
-
+    /**
+     * Method that allows to try to authenticate
+     *
+     * @throws AuthenticationException Exception related to authentication
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username = request.getParameter("username");
@@ -43,6 +55,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    /**
+     * Method that handle successful authentication case. Create access token
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
@@ -50,7 +65,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
-                .withIssuer(request.getRequestURI().toString())
+                .withIssuer(request.getRequestURI())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 
