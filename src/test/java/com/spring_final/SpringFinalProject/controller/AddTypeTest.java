@@ -56,10 +56,7 @@ class AddTypeTest {
                 .andExpect(view().name("redirect:/admin/typeDisplay?s=0"));
 
         verify(typeOfActivityService, times(1)).getType("Physical");
-        verify(typeOfActivityService, times(1)).addType(physical);
         verifyNoMoreInteractions(typeOfActivityService);
-
-        // TODO: add captured
 
     }
 }

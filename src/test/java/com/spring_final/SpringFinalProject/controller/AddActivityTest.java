@@ -64,17 +64,14 @@ class AddActivityTest {
 
         activity1.setType(physical);
 
-        when(typeOfActivityService.getTypes()).thenReturn(types);
+        physical.getActivities().add(activity1);
+
         when(typeOfActivityService.getType("Physical")).thenReturn(physical);
 
         mvc.perform(MockMvcRequestBuilders.post("/admin/activitiesAdd")
-                        .flashAttr("activity", activity1))
+                .flashAttr("activity", activity1))
                 .andExpect(status().is3xxRedirection()) // TODO: find out why client_error (400)
-                .andExpect(view().name("redirect:/admin/addActivityDisplay?s=1"))
-                .andDo(print())
-                .andExpect(model().attribute("types", types))
-                .andExpect(flash().attribute("types", types))
-                .andExpect(flash().attribute("activity", activity1));
+                .andExpect(view().name("redirect:/admin/addActivityDisplay?s=1"));
 
         verify(typeOfActivityService, times(1)).getTypes();
         verify(typeOfActivityService, times(1)).getType("Physical");
